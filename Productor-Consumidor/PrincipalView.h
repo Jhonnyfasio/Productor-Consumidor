@@ -26,6 +26,9 @@ namespace ProductorConsumidor {
 	private: System::Windows::Forms::Panel^  panelProducer;
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::Label^  labelItem;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::Label^  labelTotalItems;
+
 
 	public:
 
@@ -36,6 +39,8 @@ namespace ProductorConsumidor {
 			InitializeComponent();
 			
 			listData = new Collection<char>;
+			labelTotalItems->Text = "01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n";
+			labelTotalItems->Text += "22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35";
 		}
 
 	protected:
@@ -92,6 +97,8 @@ namespace ProductorConsumidor {
 			this->panelProducer = (gcnew System::Windows::Forms::Panel());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->labelItem = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->labelTotalItems = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxConsumer))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -119,7 +126,7 @@ namespace ProductorConsumidor {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(122, 48);
+			this->label1->Location = System::Drawing::Point(117, 39);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(53, 13);
 			this->label1->TabIndex = 2;
@@ -128,7 +135,7 @@ namespace ProductorConsumidor {
 			// labelGeneralCounter
 			// 
 			this->labelGeneralCounter->AutoSize = true;
-			this->labelGeneralCounter->Location = System::Drawing::Point(194, 49);
+			this->labelGeneralCounter->Location = System::Drawing::Point(189, 40);
 			this->labelGeneralCounter->Name = L"labelGeneralCounter";
 			this->labelGeneralCounter->Size = System::Drawing::Size(13, 13);
 			this->labelGeneralCounter->TabIndex = 3;
@@ -174,14 +181,14 @@ namespace ProductorConsumidor {
 			// 
 			// panelConsumer
 			// 
-			this->panelConsumer->Location = System::Drawing::Point(225, 75);
+			this->panelConsumer->Location = System::Drawing::Point(230, 75);
 			this->panelConsumer->Name = L"panelConsumer";
 			this->panelConsumer->Size = System::Drawing::Size(91, 526);
 			this->panelConsumer->TabIndex = 1;
 			// 
 			// panelProducer
 			// 
-			this->panelProducer->Location = System::Drawing::Point(12, 73);
+			this->panelProducer->Location = System::Drawing::Point(6, 73);
 			this->panelProducer->Name = L"panelProducer";
 			this->panelProducer->Size = System::Drawing::Size(91, 526);
 			this->panelProducer->TabIndex = 1;
@@ -193,15 +200,38 @@ namespace ProductorConsumidor {
 			// labelItem
 			// 
 			this->labelItem->AutoSize = true;
-			this->labelItem->Location = System::Drawing::Point(194, 62);
+			this->labelItem->Location = System::Drawing::Point(189, 56);
 			this->labelItem->Name = L"labelItem";
 			this->labelItem->Size = System::Drawing::Size(13, 13);
 			this->labelItem->TabIndex = 8;
 			this->labelItem->Text = L"0";
 			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(135, 55);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(35, 13);
+			this->label2->TabIndex = 9;
+			this->label2->Text = L"Items:";
+			// 
+			// labelTotalItems
+			// 
+			this->labelTotalItems->AutoSize = true;
+			this->labelTotalItems->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->labelTotalItems->Location = System::Drawing::Point(97, 75);
+			this->labelTotalItems->Name = L"labelTotalItems";
+			this->labelTotalItems->Size = System::Drawing::Size(21, 15);
+			this->labelTotalItems->TabIndex = 10;
+			this->labelTotalItems->Text = L"01";
+			this->labelTotalItems->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+			// 
 			// PrincipalView
 			// 
 			this->ClientSize = System::Drawing::Size(328, 611);
+			this->Controls->Add(this->labelTotalItems);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->labelItem);
 			this->Controls->Add(this->panelProducer);
 			this->Controls->Add(this->panelConsumer);
@@ -234,7 +264,16 @@ namespace ProductorConsumidor {
 		Graphics ^g;
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-		
+		SolidBrush ^sb = gcnew SolidBrush(Color::White);
+		Pen ^p = gcnew Pen(Color::Black);
+		g = panelDrawing->CreateGraphics();
+		//
+
+		for (int i(0), j(0); i < 35; i++) {
+			g->DrawRectangle(p, 0, j, 90, 15);
+			g->FillRectangle(sb, 1, j + 1, 89, 14);
+			j = j + 15;
+		}
 		//pictureBoxConsumer->ImageLocation = "Green.png";
 		//pictureBoxProducer->ImageLocation = "Green.png";
 	}
@@ -261,7 +300,7 @@ namespace ProductorConsumidor {
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		timer1->Interval = 400;
 		btnStart->Enabled = false;
-		paintPanelPrincipal();
+		//paintPanelPrincipal();
 		srand(time(NULL));
 		timer1->Start();
 	}
@@ -272,6 +311,9 @@ namespace ProductorConsumidor {
 	int posConsumer = 0;
 	int posProducer = 0;
 
+	int productInOut = 0;
+	int y;
+
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 		SolidBrush ^sb = gcnew SolidBrush(Color::Green);
 		SolidBrush ^sbp = gcnew SolidBrush(Color::LightGreen);
@@ -279,6 +321,8 @@ namespace ProductorConsumidor {
 		Pen ^p = gcnew Pen(Color::Red);
 		Graphics ^drawConsumer = panelConsumer->CreateGraphics();
 		Graphics ^drawProducer = panelProducer->CreateGraphics();
+
+		y = 0;
 
 		generalCounter++;
 		labelGeneralCounter->Text = generalCounter.ToString();
@@ -303,15 +347,21 @@ namespace ProductorConsumidor {
 			}
 
 			if (consumerActive) {
-				if (!listData->isEmpty()) {
-					pictureBoxConsumer->ImageLocation = "Green.png";
-					listData->dequeue();
+				productInOut = rand() % 8 + 3;
 
-					drawConsumer->DrawRectangle(p, 0, posConsumer * 15, 90, 15);
-					g->FillRectangle(sbq, 1, posConsumer * 15 + 1, 89, 14);
-					posConsumer++;
-					if (posConsumer == 35) {
-						posConsumer = 0;
+				if (!listData->isEmpty()) {
+					while (!listData->isEmpty() && y < productInOut) {
+						pictureBoxConsumer->ImageLocation = "Green.png";
+						listData->dequeue();
+
+						drawConsumer->DrawRectangle(p, 0, posConsumer * 15, 90, 15);
+						drawConsumer->FillRectangle(sbq, 1, posConsumer * 15 + 1, 89, 14);
+						g->FillRectangle(sbq, 1, posConsumer * 15 + 1, 89, 14);
+						posConsumer++;
+						if (posConsumer == 35) {
+							posConsumer = 0;
+						}
+						y++;
 					}
 				}
 				else {
@@ -338,33 +388,24 @@ namespace ProductorConsumidor {
 			}
 
 			if (producerActive) {
-				if (listData->getItemCounter() <= 35) {
-					pictureBoxProducer->ImageLocation = "Green.png";
-					listData->insertData((char)rand % 200 + 30);
+				productInOut = rand() % 8 + 3;
 
-					drawProducer->DrawRectangle(p, 0, posProducer * 15, 90, 15);
-
-					g->FillRectangle(sbp, 1, posProducer * 15 + 1, 89, 14);
-					posProducer++;
-
-					if (posProducer == 35) {
-						posProducer = 0;
-					}
-
-					if (listData->getItemCounter() <= 35) {
+				if (listData->getItemCounter() < 35) {
+					while (listData->getItemCounter() < 35 && y < productInOut) {
 						pictureBoxProducer->ImageLocation = "Green.png";
 						listData->insertData((char)rand % 200 + 30);
 
 						drawProducer->DrawRectangle(p, 0, posProducer * 15, 90, 15);
-
+						drawProducer->FillRectangle(sbp, 1, posProducer * 15 + 1, 89, 14);
 						g->FillRectangle(sbp, 1, posProducer * 15 + 1, 89, 14);
+
 						posProducer++;
-					}
 
-					if (posProducer == 35) {
-						posProducer = 0;
+						if (posProducer == 35) {
+							posProducer = 0;
+						}
+						y++;
 					}
-
 				}
 				else {
 					pictureBoxProducer->ImageLocation = "Red.png";
